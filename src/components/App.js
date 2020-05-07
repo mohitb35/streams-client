@@ -7,9 +7,12 @@ import StreamCreate from './streams/StreamCreate';
 import StreamEdit from './streams/StreamEdit';
 import StreamDelete from './streams/StreamDelete';
 
+import Header from './Header';
+
 const App = () => {
 	return (
-		<div>
+		<div className="ui container">
+			<Header />
 			<BrowserRouter>
 				<Route path="/" exact component={StreamList}/>
 				<Route path="/streams/show" exact component={StreamShow}/>
