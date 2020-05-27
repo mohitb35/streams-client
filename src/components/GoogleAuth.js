@@ -34,7 +34,7 @@ class GoogleAuth extends React.Component {
 	// Refactor to call action creator on Auth change instead of changing the state directly
 	onAuthChange = (isSignedIn) => {
 		if (isSignedIn) {
-			this.props.signIn();
+			this.props.signIn(this.auth.currentUser.get().getId());
 		} else {
 			this.props.signOut();
 		}
@@ -79,7 +79,8 @@ class GoogleAuth extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isSignedIn: state.auth.isSignedIn
+		isSignedIn: state.auth.isSignedIn,
+		userId: state.auth.userId
 	}
 }
 
