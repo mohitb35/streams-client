@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 class StreamCreate extends React.Component {
 
-	renderInput(/*formProps*/{ input }) {
+	renderInput(/*formProps*/{ input, label }) {
 		// console.log(formProps);
 		// props sent to component within field
 		/* return (
@@ -15,13 +15,15 @@ class StreamCreate extends React.Component {
 			/>
 		) */
 		return (
-			<input 
-				type="text" 
-				/* {...formProps.input} */
-				{ ...input }
-				//Shortform representation to include onChange and Value. 
-				// You can also destructure input from formProps in the function params, or use ...formProps.input
-			/>
+			<div className="field">
+				<label>{label}</label>
+				<input 
+					type="text" 
+					{ ...input }
+					//Shortform representation to include onChange and Value. 
+					// You can also destructure input from formProps in the function params, or use ...formProps.input
+				/>
+			</div>
 		);
 	}
 
@@ -29,9 +31,9 @@ class StreamCreate extends React.Component {
 		// console.log(this.props); 
 		// props are made available by wrapping the component in reduxForm
 		return (
-			<form>
-				<Field name="title" component={this.renderInput}/>
-				<Field name="description" component={this.renderInput}/>
+			<form className="ui form">
+				<Field name="title" component={this.renderInput} label="Enter title"/>
+				<Field name="description" component={this.renderInput} label="Enter description"/>
 			</form>
 		)
 	}
