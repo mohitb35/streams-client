@@ -4,8 +4,18 @@ import { Field, reduxForm } from 'redux-form';
 
 class StreamCreate extends React.Component {
 
-	renderInput(/*formProps*/{ input, label }) {
-		// console.log(formProps);
+	renderError({ touched, error }) {
+		if (touched && error) {
+			return (
+				<div className="ui error message">
+					<div className="header">{error}</div>
+				</div>
+			)
+		}
+	}
+
+	renderInput = (/*formProps*/{ input, label, meta }) => {
+		const className = `field ${meta.error && meta.touched ? "error" : ""}`
 		// props sent to component within field
 		/* return (
 			<input 
@@ -15,14 +25,16 @@ class StreamCreate extends React.Component {
 			/>
 		) */
 		return (
-			<div className="field">
+			<div className={className}>
 				<label>{label}</label>
 				<input 
 					type="text" 
 					{ ...input }
 					//Shortform representation to include onChange and Value. 
 					// You can also destructure input from formProps in the function params, or use ...formProps.input
+					autoComplete="off"
 				/>
+				{this.renderError(meta)}
 			</div>
 		);
 	}
@@ -32,19 +44,33 @@ class StreamCreate extends React.Component {
 	}
 
 	render() {
-		console.log(this.props); 
 		// props are made available by wrapping the component in reduxForm
 		return (
-			<form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+			<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
 				<Field name="title" component={this.renderInput} label="Enter title"/>
 				<Field name="description" component={this.renderInput} label="Enter description"/>
 				<button className="ui button primary">Submit</button>
 			</form>
 		)
 	}
+}
 
+// No
+const validate = (formValues) => {
+	const errors = {};
+
+	if (!formValues.title) {
+		errors.title = "Please enter a title"; 
+	}
+
+	if (!formValues.description) {
+		errors.description = "Please enter a description";
+	}
+
+	return errors;
 }
 
 export default reduxForm({
-	form: 'streamCreate'
+	form: 'streamCreate',
+	validate
 })(StreamCreate);
