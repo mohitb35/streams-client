@@ -1,6 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 // Field = react component, reduxForm = function
+import { connect } from 'react-redux';
+import { createStream } from '../../actions';
 
 class StreamCreate extends React.Component {
 
@@ -39,8 +41,9 @@ class StreamCreate extends React.Component {
 		);
 	}
 
-	onSubmit(formValues) {
+	onSubmit = (formValues) => {
 		console.log(formValues);
+		this.props.createStream(formValues);
 	}
 
 	render() {
@@ -55,7 +58,7 @@ class StreamCreate extends React.Component {
 	}
 }
 
-// No
+// Function name must be validate
 const validate = (formValues) => {
 	const errors = {};
 
@@ -70,7 +73,15 @@ const validate = (formValues) => {
 	return errors;
 }
 
-export default reduxForm({
+// Cleaner approach instead of directly wrapping the reduxForm statement within connect.
+const formWrapped = reduxForm({
 	form: 'streamCreate',
 	validate
-})(StreamCreate);
+})(StreamCreate)
+
+export default connect(
+	null,
+	{
+		createStream
+	}
+)(formWrapped);
