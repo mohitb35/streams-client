@@ -1,4 +1,5 @@
 import streams from '../apis/streams';
+import history from '../history';
 
 import { 
 	SIGN_IN, 
@@ -33,6 +34,8 @@ export const createStream = formValues => async (dispatch, getState) => {
 		payload: response.data
 	});
 
+	history.push('/');
+	// Note - there is no error handling here. As long as we move past the response, this statement will work.
 }
 
 export const fetchStreams = () => async dispatch => {
