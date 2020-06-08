@@ -9,6 +9,17 @@ import {
 // state = streams for this reducer
 export default (state = {}, action) => {
 	switch (action.type) {
+		case FETCH_STREAMS:
+			return { 
+				...state,
+				...action.payload.reduce(
+					(streamMap, item) => {
+						return {...streamMap, [item.id]: item };
+					},
+					{}
+				) 
+			};
+
 		case FETCH_STREAM:
 			return { ...state, [action.payload.id]: action.payload };
 			
@@ -18,15 +29,6 @@ export default (state = {}, action) => {
 		case EDIT_STREAM:
 			return { ...state, [action.payload.id]: action.payload };
 			
-		case FETCH_STREAMS:
-			return { 
-				...state,
-				...action.payload.reduce(
-					(streamMap, item) => ({...streamMap, [item.id]: item }),
-					{}
-				) 
-			};
-		
 		case DELETE_STREAM:
 			const newState = { ...state };
 			delete newState[action.payload];
