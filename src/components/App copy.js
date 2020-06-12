@@ -1,3 +1,6 @@
+//Different router types
+
+
 import React from 'react';
 // import { HashRouter, Route, Link } from 'react-router-dom'; 
 import { MemoryRouter, Route, Link } from 'react-router-dom'; 
