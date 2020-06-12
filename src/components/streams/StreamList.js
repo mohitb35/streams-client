@@ -30,7 +30,7 @@ class StreamList extends React.Component {
 					{/* calling renderAdmin at the top in order for semantic UI to show at the right */}
 					<i className="large middle aligned icon camera"/>
 					<div className="content">
-						{stream.title}
+						<Link to={`/streams/${stream.id}`} className="header">{stream.title}</Link>
 						<div className="description">
 							{stream.description}
 						</div>
